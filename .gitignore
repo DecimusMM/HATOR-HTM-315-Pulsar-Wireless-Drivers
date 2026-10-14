@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*.pkg.tar.zst
+src/
+pkg/
+*.egg-info/
+Win/

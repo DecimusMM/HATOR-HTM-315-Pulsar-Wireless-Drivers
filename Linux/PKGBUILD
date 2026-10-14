@@ -1,0 +1,36 @@
+# Local Arch Linux package recipe for Pulsar Control.
+# Before publishing: set `url` to the real project URL and choose/verify the license.
+pkgname=hator-pulsar-linux
+pkgver=0.3.1
+pkgrel=1
+pkgdesc='Desktop and CLI configuration tool for the HATOR Pulsar Wireless mouse'
+arch=('any')
+url='https://REPLACE-WITH-PROJECT-URL.invalid'
+license=('custom')
+depends=('python' 'tk')
+optdepends=('python-evdev: host-side macro listener')
+install='hator-pulsar.install'
+source=('pulsar.py' 'pulsar_gui.py' 'pulsar_macros.py' '70-hator-pulsar.rules' 'hator-pulsar.desktop' 'hator-pulsar.install' 'LICENSE')
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+
+check() {
+  cd "$srcdir"
+  python -m py_compile pulsar.py pulsar_gui.py pulsar_macros.py
+}
+
+package() {
+  cd "$srcdir"
+  install -Dm644 pulsar.py "$pkgdir/usr/lib/hator-pulsar/pulsar.py"
+  install -Dm644 pulsar_gui.py "$pkgdir/usr/lib/hator-pulsar/pulsar_gui.py"
+  install -Dm644 pulsar_macros.py "$pkgdir/usr/lib/hator-pulsar/pulsar_macros.py"
+  install -Dm644 70-hator-pulsar.rules "$pkgdir/usr/lib/udev/rules.d/70-hator-pulsar.rules"
+  install -Dm644 hator-pulsar.desktop "$pkgdir/usr/share/applications/hator-pulsar.desktop"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+  printf '#!/bin/sh\nexec python3 /usr/lib/hator-pulsar/pulsar.py "$@"\n' > hator-pulsar
+  printf '#!/bin/sh\nexec python3 /usr/lib/hator-pulsar/pulsar_gui.py "$@"\n' > hator-pulsar-gui
+  printf '#!/bin/sh\nexec python3 /usr/lib/hator-pulsar/pulsar_macros.py "$@"\n' > hator-pulsar-macros
+  install -Dm755 hator-pulsar "$pkgdir/usr/bin/hator-pulsar"
+  install -Dm755 hator-pulsar-gui "$pkgdir/usr/bin/hator-pulsar-gui"
+  install -Dm755 hator-pulsar-macros "$pkgdir/usr/bin/hator-pulsar-macros"
+}

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Pulsar Control
+GenericName=Mouse Configuration
+Comment=Configure HATOR Pulsar Wireless mouse settings
+Exec=hator-pulsar-gui
+Icon=input-mouse
+Terminal=false
+Categories=Settings;HardwareSettings;Utility;
+StartupNotify=true

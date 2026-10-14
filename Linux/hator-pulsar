@@ -1,0 +1,6 @@
+#!/bin/sh
+APP_DIR="$(dirname "$(readlink -f "$0")")"
+if [ -f "$APP_DIR/pulsar.py" ]; then
+  exec python3 "$APP_DIR/pulsar.py" "$@"
+fi
+exec python3 /usr/lib/hator-pulsar/pulsar.py "$@"

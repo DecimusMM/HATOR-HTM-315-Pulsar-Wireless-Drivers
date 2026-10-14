@@ -1,0 +1,24 @@
+post_install() {
+  if command -v udevadm >/dev/null 2>&1; then
+    udevadm control --reload-rules || true
+    udevadm trigger --subsystem-match=hidraw --action=change || true
+  fi
+  cat <<'MSG'
+Pulsar Control installed.
+If the mouse is not detected, reconnect it or log out and back in so the uaccess ACL applies.
+The macro listener is optional and requires python-evdev plus separate access to /dev/input and /dev/uinput.
+MSG
+}
+
+post_upgrade() {
+  if command -v udevadm >/dev/null 2>&1; then
+    udevadm control --reload-rules || true
+    udevadm trigger --subsystem-match=hidraw --action=change || true
+  fi
+}
+
+post_remove() {
+  if command -v udevadm >/dev/null 2>&1; then
+    udevadm control --reload-rules || true
+  fi
+}

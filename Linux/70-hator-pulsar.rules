@@ -1,0 +1,4 @@
+# HATOR Pulsar Wireless (SINOWEALTH 258a:002e wired, 258a:002f dongle)
+# File name sorts before 73-seat-late.rules so systemd-logind applies the user ACL.
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="002e", TAG+="uaccess"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="002f", TAG+="uaccess"
